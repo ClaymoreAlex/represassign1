@@ -113,3 +113,4 @@ xyplot(mean ~ interval | activityNoNull$isWeekend.f, data = MeanStepsByIntervalN
     layout=c(1,2))
 
 ```
+

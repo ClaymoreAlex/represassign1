@@ -19,24 +19,6 @@ library(lattice)
 library(dplyr)
 ```
 
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
 
 Graph of steps per day
 
@@ -177,3 +159,4 @@ xyplot(mean ~ interval | activityNoNull$isWeekend.f, data = MeanStepsByIntervalN
 ```
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+

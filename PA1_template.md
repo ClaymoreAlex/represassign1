@@ -1,3 +1,8 @@
+---
+output:
+  html_document:
+    keep_md: yes
+---
 # Reproducible Research - Step Activity Analysis 
 
 Monitoring devices (Fitbit, Nike Fuelband, Jawbone Up) collected step data at 5 minute intervals through out the day between October and November, 2012.  It includes the number of steps taken in 5 minute intervals each day.  Results of the analysis are included below.

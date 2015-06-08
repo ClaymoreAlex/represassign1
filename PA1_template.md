@@ -1,12 +1,10 @@
 # Reproducible Research - Step Activity Analysis 
 
-Monitoring devices (Fitbit, Nike Fuelband, Jawbone Up) collected data at 5 minute intervals through out the day between October and November, 2012.  It includes the number of steps taken in 5 minute intervals each day.  Results of the analysis are included below.
+Monitoring devices (Fitbit, Nike Fuelband, Jawbone Up) collected step data at 5 minute intervals through out the day between October and November, 2012.  It includes the number of steps taken in 5 minute intervals each day.  Results of the analysis are included below.
 
 
 
 ```r
-echo = TRUE
-
 ### read file and set libraries
 activity <- read.csv("activity.csv")
 
@@ -21,7 +19,6 @@ Graph of steps per day
 
 
 ```r
-echo = TRUE
 ## histogram sums steps by date
 stepsbydate <- aggregate(activity$steps, by = list(date = activity$date), FUN = sum)
 hist(stepsbydate$x, main = "Total Steps per Day", xlab = "Number of Steps")
@@ -34,7 +31,6 @@ Mean daily steps
 
 
 ```r
-echo = TRUE
 mean(stepsbydate$x, na.rm = TRUE)
 ```
 
@@ -47,7 +43,6 @@ Median daily steps
 
 
 ```r
-echo = TRUE
 median(stepsbydate$x, na.rm = TRUE)
 ```
 
@@ -60,7 +55,6 @@ Plot of mean steps per interval
 
 
 ```r
-echo = TRUE
 ## mean and max steps for each interval period
 GroupByInterval <- group_by(activity, interval)
 ## mean number of steps per interval
@@ -75,7 +69,6 @@ Interval with largest number of steps
 
 
 ```r
-echo = TRUE
 ## ranks average number of steps and gets largets number and associated interval
 LargestInterval <- MeanStepsByInterval[rank ( order( -MeanStepsByInterval$AvgSteps, MeanStepsByInterval$interval )) , ]
 LargestInterval[1 ,]
@@ -93,7 +86,6 @@ Count of records with NA values
 
 
 ```r
-echo = TRUE
 ## finds number of nulls
 sum(is.na(activity))
 ```
@@ -107,7 +99,6 @@ Impute NA values with the overall mean for that 5 minute interval
 
 
 ```r
-echo = TRUE
 ## replaces NA with interval mean
 impute.mean <- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
 activityNoNull <- ddply(activity, ~ interval, transform, steps = impute.mean(steps))
@@ -124,7 +115,6 @@ Get means and medians for data with imputed values
 
 
 ```r
-echo = TRUE
 mean(stepsbydateNoNull$x)
 ```
 
@@ -149,7 +139,6 @@ Plot step data by interval and compare weekday and weekend results
 
 
 ```r
-echo = TRUE
 ## creates weekend factor variable
 activityNoNull$isWeekend <- isWeekend(activityNoNull$date)
 activityNoNull$isWeekend.f <- factor(activityNoNull$isWeekend, labels = c("Weekday", "Weekend"))

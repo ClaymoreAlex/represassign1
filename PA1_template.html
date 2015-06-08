@@ -203,11 +203,9 @@ hr {
 <body>
 <h1>Reproducible Research - Step Activity Analysis</h1>
 
-<p>Monitoring devices (Fitbit, Nike Fuelband, Jawbone Up) collected data at 5 minute intervals through out the day between October and November, 2012.  It includes the number of steps taken in 5 minute intervals each day.  Results of the analysis are included below.</p>
+<p>Monitoring devices (Fitbit, Nike Fuelband, Jawbone Up) collected step data at 5 minute intervals through out the day between October and November, 2012.  It includes the number of steps taken in 5 minute intervals each day.  Results of the analysis are included below.</p>
 
-<pre><code class="r">echo = TRUE
-
-### read file and set libraries
+<pre><code class="r">### read file and set libraries
 activity &lt;- read.csv(&quot;activity.csv&quot;)
 
 library(timeDate)
@@ -218,8 +216,7 @@ library(dplyr)
 
 <p>Graph of steps per day</p>
 
-<pre><code class="r">echo = TRUE
-## histogram sums steps by date
+<pre><code class="r">## histogram sums steps by date
 stepsbydate &lt;- aggregate(activity$steps, by = list(date = activity$date), FUN = sum)
 hist(stepsbydate$x, main = &quot;Total Steps per Day&quot;, xlab = &quot;Number of Steps&quot;)
 </code></pre>
@@ -228,8 +225,7 @@ hist(stepsbydate$x, main = &quot;Total Steps per Day&quot;, xlab = &quot;Number 
 
 <p>Mean daily steps</p>
 
-<pre><code class="r">echo = TRUE
-mean(stepsbydate$x, na.rm = TRUE)
+<pre><code class="r">mean(stepsbydate$x, na.rm = TRUE)
 </code></pre>
 
 <pre><code>## [1] 10766.19
@@ -237,8 +233,7 @@ mean(stepsbydate$x, na.rm = TRUE)
 
 <p>Median daily steps</p>
 
-<pre><code class="r">echo = TRUE
-median(stepsbydate$x, na.rm = TRUE)
+<pre><code class="r">median(stepsbydate$x, na.rm = TRUE)
 </code></pre>
 
 <pre><code>## [1] 10765
@@ -246,8 +241,7 @@ median(stepsbydate$x, na.rm = TRUE)
 
 <p>Plot of mean steps per interval</p>
 
-<pre><code class="r">echo = TRUE
-## mean and max steps for each interval period
+<pre><code class="r">## mean and max steps for each interval period
 GroupByInterval &lt;- group_by(activity, interval)
 ## mean number of steps per interval
 MeanStepsByInterval &lt;- summarise(GroupByInterval, AvgSteps = mean(steps, na.rm = TRUE))
@@ -258,8 +252,7 @@ plot(MeanStepsByInterval, type = &quot;l&quot;, main = &quot;Mean Steps by Inter
 
 <p>Interval with largest number of steps</p>
 
-<pre><code class="r">echo = TRUE
-## ranks average number of steps and gets largets number and associated interval
+<pre><code class="r">## ranks average number of steps and gets largets number and associated interval
 LargestInterval &lt;- MeanStepsByInterval[rank ( order( -MeanStepsByInterval$AvgSteps, MeanStepsByInterval$interval )) , ]
 LargestInterval[1 ,]
 </code></pre>
@@ -272,8 +265,7 @@ LargestInterval[1 ,]
 
 <p>Count of records with NA values</p>
 
-<pre><code class="r">echo = TRUE
-## finds number of nulls
+<pre><code class="r">## finds number of nulls
 sum(is.na(activity))
 </code></pre>
 
@@ -282,8 +274,7 @@ sum(is.na(activity))
 
 <p>Impute NA values with the overall mean for that 5 minute interval</p>
 
-<pre><code class="r">echo = TRUE
-## replaces NA with interval mean
+<pre><code class="r">## replaces NA with interval mean
 impute.mean &lt;- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
 activityNoNull &lt;- ddply(activity, ~ interval, transform, steps = impute.mean(steps))
 
@@ -296,8 +287,7 @@ hist(stepsbydateNoNull$x, main = &quot;Total Steps per Day (Nulls Imputed)&quot;
 
 <p>Get means and medians for data with imputed values</p>
 
-<pre><code class="r">echo = TRUE
-mean(stepsbydateNoNull$x)
+<pre><code class="r">mean(stepsbydateNoNull$x)
 </code></pre>
 
 <pre><code>## [1] 10766.19
@@ -313,8 +303,7 @@ mean(stepsbydateNoNull$x)
 
 <p>Plot step data by interval and compare weekday and weekend results</p>
 
-<pre><code class="r">echo = TRUE
-## creates weekend factor variable
+<pre><code class="r">## creates weekend factor variable
 activityNoNull$isWeekend &lt;- isWeekend(activityNoNull$date)
 activityNoNull$isWeekend.f &lt;- factor(activityNoNull$isWeekend, labels = c(&quot;Weekday&quot;, &quot;Weekend&quot;))
 
